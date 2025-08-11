@@ -13,6 +13,14 @@ connectDB();
 app.use('/api/json',jsonRoutes);
 app.use('/api/base64',base64Routes);
 
+app.use((err,req,res,next)=>{
+    if(err.status===400){
+        console.log(err.body);
+        return res.status(400).send("not valid json");
+    }
+    next();
+})
+
 app.listen(PORT,()=>{
     console.log(`server is listening on PORT ${PORT}`);
 })
