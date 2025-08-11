@@ -1,10 +1,11 @@
-import { InfoIcon, Menu, User, X } from 'lucide-react'
+import { InfoIcon, Menu, Moon, Sun, User, X } from 'lucide-react'
 import React from 'react'
 import { useState } from 'react'
 import { Link } from 'react-router'
 
 const Navbar = () => {
     const [menu,setMenu]= useState(false);
+    const [theme,setTheme]= useState("light");
   return (
     <div className='h-16 flex justify-between'>
         <div className="left h-full flex px-4">
@@ -22,7 +23,23 @@ const Navbar = () => {
             <InfoIcon/>
             </div>
             </Link>
-            <Link to='/' onClick={()=>{ setMenu(false)}}>
+            <Link to='/'>
+            <div className=' flex items-center justify-between hover:bg-gray-300 py-2 px-2.5 w-21 bg-gray-100 rounded-full' onClick={()=>{ theme==="light"? setTheme("dark") : setTheme("light")}}>
+                {
+                    theme==="light"?
+                    <>
+                        <Sun/>
+                            <p>Light</p>
+                        </>
+                        :
+                        <>
+                        <Moon/>
+                            <p>Dark</p>
+                        </>
+                }
+            </div>
+            </Link>
+            <Link to='/'>
             <div className=' flex items-center justify-between hover:bg-gray-300 p-2 rounded-full' onClick={()=>{ setMenu(false)}}>
                 <User/>
             </div>

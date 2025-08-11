@@ -1,10 +1,10 @@
 import { decodeText, encodeText } from "../services/base64Services.js";
 
 export const decodeController= async(req,res)=>{
-    const {text}= req.body;
+    const {text,decoding}= req.body;
     let decodedText;
     try{
-        decodedText= await decodeText(text);
+        decodedText= await decodeText(text,decoding);
     }catch(err){
         res.status(500).send("error decoding")
     }
@@ -12,10 +12,10 @@ export const decodeController= async(req,res)=>{
 }
 
 export const encodeController= async(req,res)=>{
-    const {text}= req.body;
+    const {text,encoding}= req.body;
     let encodedText;
     try{
-        encodedText= await encodeText(text);
+        encodedText= await encodeText(text,encoding);
     }catch(err){
         res.status(500).send("error encoding");
     }
