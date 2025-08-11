@@ -2,9 +2,11 @@ import express from 'express'
 import connectDB from './utilities/connectDB.js';
 import jsonRoutes from './routes/jsonRoutes.js';
 import base64Routes from './routes/base64Routes.js';
+import cors from 'cors'
 
 const app= express();
 app.use(express.json());
+app.use(cors());
 const PORT= process.env.PORT;
 connectDB();
 
