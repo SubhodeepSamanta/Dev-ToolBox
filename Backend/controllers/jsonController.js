@@ -1,5 +1,12 @@
+import { formatJson } from "../services/jsonServices.js";
+
 export const jsonController= async(req,res)=>{
-    const { json }= req.body;
-    console.log(json);
-    res.status(200).send("hello");
+    const { json, mode="beautify", indents=2}= req.body;
+    try{
+        const format= await formatJson(json,mode,indents);
+        res.status(200).send(format);
+    }catch(err){
+        console.log(err);
+        res.status(500).send("error");
+    }
 }
