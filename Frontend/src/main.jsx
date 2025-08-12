@@ -8,6 +8,7 @@ import HomePage from './Routes/HomePage.jsx'
 import InfoPage from './Routes/InfoPage.jsx'
 import Base64Page from './Routes/Base64Page.jsx'
 import JsonPage from './Routes/JsonPage.jsx'
+import UserPage from './Routes/UserPage.jsx'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
@@ -18,6 +19,7 @@ createRoot(document.getElementById('root')).render(
         <Route path='/json' element={<JsonPage/>}/>
         <Route path='/base64' element={<Base64Page/>}/>
         <Route path='/info' element={<InfoPage/>}/>
+        <Route path='/profile' element={<UserPage/>}/>
       </Route>
     </Routes>
     </BrowserRouter>

@@ -2,12 +2,13 @@ import { InfoIcon, Menu, Moon, Sun, User, X } from 'lucide-react'
 import React from 'react'
 import { useState } from 'react'
 import { Link } from 'react-router'
+import { useThemeStore } from '../utilities/themeStore'
 
 const Navbar = () => {
     const [menu,setMenu]= useState(false);
-    const [theme,setTheme]= useState("light");
+    const {theme,toggleTheme}= useThemeStore();
   return (
-    <div className='h-16 flex justify-between'>
+    <div className='h-16 flex justify-between dark:bg-[#020512] dark:shadow-2xl dark:shadow-gray-100 dark:text-white'>
         <div className="left h-full flex px-4">
             <Link to='/' className='ml-2 flex items-center gap-2'>
             <img src="/logo.png" alt="logo" className='h-12 w-12' />
@@ -16,14 +17,14 @@ const Navbar = () => {
         </div>
         {/* desktop right  */}
         <div className="right hidden md:flex gap-4 items-center p-4">
-            <Link to='/json' className='hover:text-gray-500 mr-2'>Json Formatter</Link>
-            <Link to='/base64' className='hover:text-gray-500 mr-2'>Base64 Encoder/Decoder</Link>
+            <Link to='/json' className='hover:text-gray-500 dark:hover:text-gray-200 mr-2'>Json Formatter</Link>
+            <Link to='/base64' className='hover:text-gray-500 dark:hover:text-gray-200 mr-2'>Base64 Encoder/Decoder</Link>
             <Link to='/info'>
-            <div className=' flex items-center justify-between hover:bg-gray-200 p-2 rounded-lg'>
+            <div className=' flex items-center justify-between hover:bg-gray-200 dark:hover:bg-[#243887] p-2 rounded-lg'>
             <InfoIcon/>
             </div>
             </Link>
-            <div className=' flex items-center justify-between hover:bg-gray-300 py-2 px-2.5 w-21 bg-gray-100 rounded-full cursor-pointer' onClick={()=>{ theme==="light"? setTheme("dark") : setTheme("light")}}>
+            <div className=' flex items-center justify-between hover:bg-gray-300 py-2 px-2.5 w-21 dark:bg-[#243887] dark:hover:bg-[#5972d8] bg-gray-100 rounded-full cursor-pointer' onClick={()=>toggleTheme()}>
                 {
                     theme==="light"?
                     <>
@@ -37,35 +38,49 @@ const Navbar = () => {
                         </>
                 }
             </div>
-            <Link to='/'>
-            <div className=' flex items-center justify-between hover:bg-gray-300 p-2 rounded-full' onClick={()=>{ setMenu(false)}}>
+            <Link to='/profile'>
+            <div className=' flex items-center justify-between hover:bg-gray-300 dark:hover:bg-[#243887] p-2 rounded-full' onClick={()=>{ setMenu(false)}}>
                 <User/>
             </div>
             </Link>
         </div>
         {/* mobile right  */}
-        <div onClick={()=> setMenu((prev)=> !prev)} className="right flex md:hidden items-center mr-5">
+        <div onClick={()=> setMenu((prev)=> !prev)} className="right flex md:hidden items-center dark:bg-[#020512] mr-5">
             <Menu/>
         </div>
-        <div className={`right bg-white flex flex-col items-center justify-between fixed md:hidden top-0 z-10 h-[100%] w-[100%] rounded-xl transition-all ease-in-out duration-1000 ${menu? 'right-0' : ' -right-200 -top-200'}`}>
+        <div className={`right bg-white dark:bg-[#020512] flex flex-col items-center justify-between fixed md:hidden top-0 z-10 h-[100%] w-[100%] rounded-xl transition-all ease-in-out duration-1000 ${menu? 'right-0' : ' -right-200 -top-200'}`}>
             <X onClick={()=> setMenu(prev=>!prev)} className='absolute top-5 right-5'/>
                 <img src="DevToolBoxLogo.png" alt="logo" className='absolute top-10 h-50 w-50' />
             <div className='flex flex-col h-full justify-center text-lg gap-10 items-center'>
-            <Link to='/json' className='hover:text-gray-500 mr-2' onClick={()=> setMenu((prev)=> !prev)}>Json Formatter</Link>
-            <Link to='/base64' className='hover:text-gray-500 mr-2' onClick={()=> setMenu((prev)=> !prev)}>Base64 Encoder/Decoder</Link>
+            <Link to='/json' className='hover:text-gray-500 dark:hover:text-gray-200 mr-2' onClick={()=> setMenu((prev)=> !prev)}>Json Formatter</Link>
+            <Link to='/base64' className='hover:text-gray-500 dark:hover:text-gray-200 mr-2' onClick={()=> setMenu((prev)=> !prev)}>Base64 Encoder/Decoder</Link>
             <Link to='/info' onClick={()=> setMenu((prev)=> !prev)}>
-            <div className=' flex items-center justify-between hover:bg-gray-200 p-2 rounded-lg gap-2'>
+            <div className=' flex items-center justify-between hover:bg-gray-200 dark:hover:bg-[#243887] p-2 rounded-lg gap-2'>
             <InfoIcon/> Information
             </div>
             </Link>
-            <Link to='/' onClick={()=> setMenu((prev)=> !prev)}>
-            <div className=' flex items-center justify-between hover:bg-gray-300 p-2 rounded-full'>
+            <div className=' flex items-center justify-between hover:bg-gray-300 py-2 px-2.5 w-21 dark:bg-[#243887] dark:hover:bg-[#5972d8] bg-gray-100 rounded-full cursor-pointer' onClick={()=>toggleTheme()}>
+                {
+                    theme==="light"?
+                    <>
+                        <Sun/>
+                            <p>Light</p>
+                        </>
+                        :
+                        <>
+                        <Moon/>
+                            <p>Dark</p>
+                        </>
+                }
+            </div>
+            <Link to='/profile' onClick={()=> setMenu((prev)=> !prev)}>
+            <div className=' flex items-center justify-between hover:bg-gray-300 dark:hover:bg-[#243887] p-2 rounded-full'>
                 <User/>
             </div>
             </Link>
                 </div>
         </div>
-    </div>
+    </div> 
   )
 }
 

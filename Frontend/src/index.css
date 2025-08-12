@@ -1,6 +1,23 @@
 @import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
 
 body{
   width: 100vw;
   overflow-x: hidden;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #8aa2ff; 
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #243887;
+    border-radius: 20px;
 }
