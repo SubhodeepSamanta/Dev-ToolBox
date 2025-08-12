@@ -23,8 +23,7 @@ const Navbar = () => {
             <InfoIcon/>
             </div>
             </Link>
-            <Link to='/'>
-            <div className=' flex items-center justify-between hover:bg-gray-300 py-2 px-2.5 w-21 bg-gray-100 rounded-full' onClick={()=>{ theme==="light"? setTheme("dark") : setTheme("light")}}>
+            <div className=' flex items-center justify-between hover:bg-gray-300 py-2 px-2.5 w-21 bg-gray-100 rounded-full cursor-pointer' onClick={()=>{ theme==="light"? setTheme("dark") : setTheme("light")}}>
                 {
                     theme==="light"?
                     <>
@@ -38,7 +37,6 @@ const Navbar = () => {
                         </>
                 }
             </div>
-            </Link>
             <Link to='/'>
             <div className=' flex items-center justify-between hover:bg-gray-300 p-2 rounded-full' onClick={()=>{ setMenu(false)}}>
                 <User/>
