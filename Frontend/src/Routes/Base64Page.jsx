@@ -1,15 +1,39 @@
 import React, { useState } from 'react'
 import {Clipboard} from 'lucide-react'
+import apiRequest from '../utilities/apiRequest';
 
 const Base64Page = () => {
   const [text,setText]= useState("");
   const [mode,setMode]= useState("base64");
   const [type,setType]= useState("encode");
+  const [output,setOutput]= useState("");
+  const [copy,setCopy]= useState("Copy to Clipboard");
 
-  const handleSubmit=async()=>{
-    console.log(text);
-    console.log(mode);
-    console.log(type);
+  const CopyText= ()=>{
+    navigator.clipboard.writeText(output);
+    setCopy("Copied!");
+    setTimeout(()=>{
+      setCopy("Copy to Clipboard");
+    },3000);
+  }
+
+  const handleSubmitDecode=async()=>{
+    const response= await apiRequest.post('/api/base64/decode',{
+      text,
+      decoding: mode
+    })
+    console.log(response.data);
+    setOutput(response.data);
+    return response.data;
+  }
+  const handleSubmitEncode=async()=>{
+    const response= await apiRequest.post('/api/base64/encode',{
+      text,
+      encoding: mode
+    })
+    console.log(response.data);
+    setOutput(response.data);
+    return response.data;
   }
 
   return (
@@ -37,9 +61,9 @@ const Base64Page = () => {
         <div className='py-2 px-4 text-sm bg-blue-500 w-fit text-white rounded-lg cursor-pointer hover:bg-blue-400'>{type=='decode'? 'Decode' : 'Encode'}</div>
       </div>
       <div className='flex-1 border-1 border-gray-500 rounded-2xl relative'>
-        <textarea name="" id="" className='w-full h-full border-0 rounded-2xl p-4 resize-none outline-gray-500' placeholder='Output will appear here' readOnly></textarea>
-        <div className='absolute right-5 bottom-5 bg-[#e6e6ff] py-2 px-4 cursor-pointer text-gray-900 border-1 border-[#e6e6ff] hover:border-gray-500 rounded-full'>Copy to Clipboard</div>
-        <div className='absolute right-5 top-5 bg-gray-200 p-2 text-white rounded-full cursor-pointer hover:bg-gray-300'><Clipboard className='h-4 w-4 text-black'/></div>
+        <textarea name="" id="" className='w-full h-full border-0 rounded-2xl p-4 resize-none outline-gray-500' value={output} placeholder='Output will appear here' readOnly></textarea>
+        <div className='absolute right-5 bottom-5 bg-[#e6e6ff] py-2 px-4 cursor-pointer text-gray-900 border-1 border-[#e6e6ff] hover:border-gray-500 rounded-full' onClick={()=>CopyText()}>{copy}</div>
+        <div className='absolute right-5 top-5 bg-gray-200 p-2 text-white rounded-full cursor-pointer hover:bg-gray-300' onClick={()=>CopyText()}><Clipboard className='h-4 w-4 text-black'/></div>
       </div>
     </div>
     {/* large keliye */}
@@ -57,7 +81,7 @@ const Base64Page = () => {
           <option value="ucs2">ucs2</option>
           <option value="utf161e">utf161e</option>
         </select>
-        <div className='py-2 px-10 bg-blue-500 w-fit text-white rounded-lg cursor-pointer hover:bg-blue-400' onClick={()=>handleSubmit()}>{type=='decode'? 'Decode' : 'Encode'}</div>
+        <div className='py-2 px-10 bg-blue-500 w-fit text-white rounded-lg cursor-pointer hover:bg-blue-400' onClick={()=>{type==='decode'?handleSubmitDecode():handleSubmitEncode()}}>{type=='decode'? 'Decode' : 'Encode'}</div>
       </div>
     </>
   )

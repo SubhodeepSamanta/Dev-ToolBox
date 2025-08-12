@@ -5,6 +5,7 @@ export const decodeController= async(req,res)=>{
     let decodedText;
     try{
         decodedText= await decodeText(text,decoding);
+        return res.status(200).send(decodedText);
     }catch(err){
         res.status(500).send("error decoding")
     }
@@ -16,6 +17,7 @@ export const encodeController= async(req,res)=>{
     let encodedText;
     try{
         encodedText= await encodeText(text,encoding);
+        return res.status(200).send(encodedText);
     }catch(err){
         res.status(500).send("error encoding");
     }
