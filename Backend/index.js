@@ -6,10 +6,12 @@ import cors from 'cors'
 
 const app= express();
 app.use(express.json());
-app.use(cors());
+app.use(cors({
+    origin: process.env.CLIENT_URL,
+    credentials: true
+}));
 const PORT= process.env.PORT;
 connectDB();
-
 app.use('/api/json',jsonRoutes);
 app.use('/api/base64',base64Routes);
 
