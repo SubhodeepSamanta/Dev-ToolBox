@@ -49,6 +49,7 @@ const Navbar = () => {
         </div>
         <div className={`right bg-white flex flex-col items-center justify-between fixed md:hidden top-0 z-10 h-[100%] w-[100%] rounded-xl transition-all ease-in-out duration-1000 ${menu? 'right-0' : ' -right-200 -top-200'}`}>
             <X onClick={()=> setMenu(prev=>!prev)} className='absolute top-5 right-5'/>
+                <img src="DevToolBoxLogo.png" alt="logo" className='absolute top-10 h-50 w-50' />
             <div className='flex flex-col h-full justify-center text-lg gap-10 items-center'>
             <Link to='/json' className='hover:text-gray-500 mr-2' onClick={()=> setMenu((prev)=> !prev)}>Json Formatter</Link>
             <Link to='/base64' className='hover:text-gray-500 mr-2' onClick={()=> setMenu((prev)=> !prev)}>Base64 Encoder/Decoder</Link>
