@@ -52,7 +52,7 @@ const UserPage = () => {
               </label>
               <label htmlFor="username" className="flex flex-col gap-2 w-full text-base sm:text-xl p-5 px-10">
                 Password:
-                <input type="text" id="username" placeholder="Password" className="p-2 border-1 border-gray-400 rounded-xl" />
+                <input type="password" id="username" placeholder="Password" className="p-2 border-1 border-gray-400 rounded-xl" />
               </label>
               <div className="text-center p-2 mt-4 bg-[#243887] hover:bg-[#5972d8] text-white mx-25 sm:mx-45 rounded-3xl cursor-pointer">login</div>
             </div>
@@ -76,7 +76,7 @@ const UserPage = () => {
               </label>
               <label htmlFor="username" className="flex flex-col gap-2 w-full text-base sm:text-xl p-5 px-10">
                 Password:
-                <input type="text" id="username" placeholder="Password" className="p-2 border-1 border-gray-400 rounded-xl" />
+                <input type="password" id="username" placeholder="Password" className="p-2 border-1 border-gray-400 rounded-xl" />
               </label>
               <div className="text-center p-2 mt-4 bg-[#243887] hover:bg-[#5972d8] text-white mx-25 sm:mx-45 rounded-3xl cursor-pointer">Sign In</div>
             </div>
@@ -126,7 +126,7 @@ const UserPage = () => {
               <p>{h.output}</p>
             </div>
             <div className="bg-gray-100 dark:bg-[#202a55] w-full p-4 flex justify-around overflow-auto scrollbar-hide">
-              <p>{new Date(h.timestamp).toLocaleTimeString()}</p>
+              <p>{new Date(h.timestamp).toLocaleString()}</p>
             </div>
           </div>
           ))

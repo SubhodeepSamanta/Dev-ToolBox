@@ -25,7 +25,7 @@ const Base64Page = () => {
       decoding: mode
     })
     setOutput(response.data);
-    addHistory({type:"encode",input:text,output:response.data});
+    addHistory({type:"decode",input:text,output:response.data});
     return response.data;
   }
   const handleSubmitEncode=async()=>{
