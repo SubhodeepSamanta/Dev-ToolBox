@@ -118,9 +118,9 @@ npm run dev
 
 <div align="center">
 
-| Toolbox Home | Tool Example | Settings |
-|--------------|-------------|----------|
-| ![Home](Screenshots/Home.png) | ![Tool](Screenshots/Tool.png) | ![Settings](Screenshots/Settings.png) |
+| Home | Json | Base64 | Info | Profile | Light |
+|--------------|-------------|----------|----------|----------|----------|
+| ![Home](Screenshots/Home.png) | ![Json](Screenshots/Json.png) | ![Base64](Screenshots/Base64.png) | ![Info](Screenshots/Info.png) | ![Profile](Screenshots/Profile.png) | ![Light](Screenshots/Light.png) |
 
 </div>
 
