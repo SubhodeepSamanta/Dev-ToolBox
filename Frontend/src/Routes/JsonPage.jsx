@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import {Clipboard, Copy} from 'lucide-react'
 import apiRequest from '../utilities/apiRequest';
+import { useHistoryStore } from '../Store/historyStore';
 
 const JsonPage = () => {
   const [text,setText]= useState("");
@@ -8,6 +9,7 @@ const JsonPage = () => {
   const [output,setOutput]= useState("");
   const [indents,setIndents]= useState("2");
   const [copy,setCopy]= useState("Copy to Clipboard");
+  const {addHistory}= useHistoryStore();
 
   const validCheck=()=>{
     try{
@@ -39,7 +41,7 @@ const JsonPage = () => {
       indents: Number(indents)
     })
     setOutput(JSON.stringify(response.data,null,mode==='beautify'?Number(indents):0));
-    console.log(response.data);
+    addHistory({type:"JSON Formatter",input:JSON.stringify(text),output:JSON.stringify(response.data)});
     return response.data;
   }
 

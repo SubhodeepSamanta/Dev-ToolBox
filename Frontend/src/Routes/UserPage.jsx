@@ -1,27 +1,40 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {X} from 'lucide-react'
 import { useAuthStore } from "../Store/authStore";
+import { useHistoryStore } from "../Store/historyStore";
 
 const UserPage = () => {
   const [logIn,setLogin]= useState(false);
   const [signUp,setSignUp]= useState(false);
   const {user}= useAuthStore();
-  console.log(user);
+  const {history,loadHistory,clearHistory}= useHistoryStore();
+  useEffect(()=>{
+    loadHistory();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  },[]);
   return (
     <div className="bg-white dark:bg-[#020512] dark:text-white h-[100vh]">
       <div className="flex flex-col lg:flex-row items-center gap-5 pt-4 relative">
         <h1 className="text-2xl sm:text-3xl font-bold md:ml-15">Welcome {user===null? 'User': user}!</h1>
         <span className="flex flex-col md:flex-row text-red-500">
+          {
+            !user ?
+            <>
           <span className="bg-blue-500 flex items-center justify-center text-white py-2 px-5 rounded-full hover:bg-blue-400 cursor-pointer mx-2 md:mr-5" onClick={()=>setLogin(true)}>
             Login
           </span>
-          <span className="text-xs md:text-base mt-2">Your data is stored in database when logged in</span>
-          {/* <span className="bg-blue-500 flex items-center justify-center text-white py-2 px-5 rounded-full hover:bg-blue-400 cursor-pointer mx-2 md:mr-5">
-            Sign Out
-          </span>
-          <span className="text-xs md:text-base mt-2">
+            <span className="text-xs md:text-base mt-2">
             You are not logged in, no data is being stored in database
-          </span> */}
+          </span>
+            </>
+            :
+            <>
+          <span className="bg-blue-500 flex items-center justify-center text-white py-2 px-5 rounded-full hover:bg-blue-400 cursor-pointer mx-2 md:mr-5">
+            Sign Out
+            </span>
+            <span className="text-xs md:text-base mt-2">Your data is stored in database when logged in</span>
+            </>
+          }
         </span>
         {/* login  */}
         {
@@ -77,7 +90,7 @@ const UserPage = () => {
         <div className="border dark:border-gray-700 w-[90%] ml-5 sm:ml-10 md:ml-20 mt-10 rounded-t-xl scrollbar-hide">
           {/* Header wala row */}
           <div className="grid grid-cols-5 relative">
-                  <span className="text-red-500 absolute -top-10 right-10 cursor-pointer">Clear all Data</span>
+                  <span className="text-red-500 absolute -top-10 right-10 cursor-pointer" onClick={()=>clearHistory()}>Clear all Data</span>
             <div className="bg-gray-200 dark:bg-[#09123b] rounded-tl-xl h-15 flex items-center justify-around p-4 text-sm md:text-xl font-medium">
               <p>Index</p>
             </div>
@@ -96,57 +109,35 @@ const UserPage = () => {
           </div>
 
           {/* Data row */}
-          <div className="grid grid-cols-5 text-xs md:text-base">
+          {
+            history.length > 0 ?(
+            history.map((h,index)=>(
+            <div className="grid grid-cols-5 text-xs md:text-base" key={h.timestamp}>
             <div className="bg-gray-100 dark:bg-[#202a55] w-full p-4 flex justify-around">
-              <p>1.</p>
+              <p>{index+1}</p>
             </div>
             <div className="bg-gray-100 dark:bg-[#202a55] w-full p-4 flex justify-around">
-              <p>JSON Formatter</p>
+              <p>{h.type}</p>
             </div>
             <div className="bg-gray-100 dark:bg-[#202a55] w-full p-4 flex justify-around overflow-auto scrollbar-hide">
-              <p>adbgocouliadcvbvwdolicwdcwdc</p>
+              <p>{h.input}</p>
             </div>
             <div className="bg-gray-100 dark:bg-[#202a55] w-full p-4 flex justify-around overflow-auto scrollbar-hide">
-              <p>idahcowievgweopihvwpdiich</p>
+              <p>{h.output}</p>
             </div>
             <div className="bg-gray-100 dark:bg-[#202a55] w-full p-4 flex justify-around overflow-auto scrollbar-hide">
-              <p>12:00am 10/01/25</p>
+              <p>{new Date(h.timestamp).toLocaleTimeString()}</p>
             </div>
           </div>
-          <div className="grid grid-cols-5 text-xs md:text-base">
+          ))
+            ):(
+          <div className="grid grid-cols-1 text-xs md:text-base">
             <div className="bg-gray-100 dark:bg-[#202a55] w-full p-4 flex justify-around">
-              <p>2.</p>
-            </div>
-            <div className="bg-gray-100 dark:bg-[#202a55] w-full p-4 flex justify-around">
-              <p>JSON Formatter</p>
-            </div>
-            <div className="bg-gray-100 dark:bg-[#202a55] w-full p-4 flex justify-around overflow-auto scrollbar-hide">
-              <p>adbgocouliadcvbvwdolicwdcwdc</p>
-            </div>
-            <div className="bg-gray-100 dark:bg-[#202a55] w-full p-4 flex justify-around overflow-auto scrollbar-hide">
-              <p>idahcowievgweopihvwpdiich</p>
-            </div>
-            <div className="bg-gray-100 dark:bg-[#202a55] w-full p-4 flex justify-around overflow-auto scrollbar-hide">
-              <p>12:00am 10/01/25</p>
+              <p>No Data Saved</p>
             </div>
           </div>
-          <div className="grid grid-cols-5 text-xs md:text-base">
-            <div className="bg-gray-100 dark:bg-[#202a55] w-full p-4 flex justify-around">
-              <p>3.</p>
-            </div>
-            <div className="bg-gray-100 dark:bg-[#202a55] w-full p-4 flex justify-around">
-              <p>JSON Formatter</p>
-            </div>
-            <div className="bg-gray-100 dark:bg-[#202a55] w-full p-4 flex justify-around overflow-auto scrollbar-hide">
-              <p>adbgocouliadcvbvwdolicwdcwdc</p>
-            </div>
-            <div className="bg-gray-100 dark:bg-[#202a55] w-full p-4 flex justify-around overflow-auto scrollbar-hide">
-              <p>idahcowievgweopihvwpdiich</p>
-            </div>
-            <div className="bg-gray-100 dark:bg-[#202a55] w-full p-4 flex justify-around overflow-auto scrollbar-hide">
-              <p>12:00am 10/01/25</p>
-            </div>
-          </div>
+            )
+          }
         </div>
       </div>
     </div>

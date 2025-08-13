@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import {Clipboard} from 'lucide-react'
 import apiRequest from '../utilities/apiRequest';
+import { useHistoryStore } from '../Store/historyStore';
 
 const Base64Page = () => {
   const [text,setText]= useState("");
@@ -8,6 +9,7 @@ const Base64Page = () => {
   const [type,setType]= useState("encode");
   const [output,setOutput]= useState("");
   const [copy,setCopy]= useState("Copy to Clipboard");
+  const {addHistory}= useHistoryStore();
 
   const CopyText= ()=>{
     navigator.clipboard.writeText(output);
@@ -22,8 +24,8 @@ const Base64Page = () => {
       text,
       decoding: mode
     })
-    console.log(response.data);
     setOutput(response.data);
+    addHistory({type:"encode",input:text,output:response.data});
     return response.data;
   }
   const handleSubmitEncode=async()=>{
@@ -31,8 +33,8 @@ const Base64Page = () => {
       text,
       encoding: mode
     })
-    console.log(response.data);
     setOutput(response.data);
+    addHistory({type:"encode",input:text,output:response.data});
     return response.data;
   }
 
