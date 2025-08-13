@@ -11,13 +11,20 @@ body{
 
 }
 
-/* Track */
 ::-webkit-scrollbar-track {
   background: #8aa2ff; 
 }
  
-/* Handle */
 ::-webkit-scrollbar-thumb {
   background: #243887;
     border-radius: 20px;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+    display: none;
+}
+
+.scrollbar-hide {
+    -ms-overflow-style: none;  
+    scrollbar-width: none; 
 }

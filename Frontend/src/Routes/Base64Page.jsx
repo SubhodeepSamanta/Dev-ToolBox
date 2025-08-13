@@ -37,9 +37,9 @@ const Base64Page = () => {
   }
 
   return (
-    <div className='bg-white dark:bg-[#020512] dark:text-white'>
+    <div className='bg-white dark:bg-[#020512] dark:text-white pb-10'>
     <h1 className='text-2xl sm:text-3xl flex justify-center md:justify-start md:ml-15 pt-2 font-bold'>Base 64 Encoder/Decoder</h1>
-    <div className=' flex flex-col md:flex-row mt-5 h-180 sm:h-160 lg:h-170 xl:180 gap-5 sm:gap-10 px-5 sm:px-10'>
+    <div className=' flex flex-col md:flex-row mt-5 h-200 sm:h-160 lg:h-170 xl:180 gap-5 sm:gap-10 px-5 sm:px-10'>
       <div className='flex-1 border-1 border-gray-500 rounded-2xl'>
         <textarea name="" id="" className='w-full h-full border-0 rounded-2xl p-4 resize-none outline-gray-500' onChange={(e)=> setText(e.target.value)} placeholder='Enter Text here' value={text}></textarea>
       </div>
