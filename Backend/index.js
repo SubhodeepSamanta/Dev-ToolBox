@@ -5,6 +5,7 @@ import base64Routes from './routes/base64Routes.js';
 import cookieParser from 'cookie-parser';
 import cors from 'cors'
 import authRoutes from './routes/authRoutes.js';
+import historyRoutes from './routes/historyRoutes.js';
 
 const app= express();
 app.use(express.json());
@@ -18,6 +19,7 @@ connectDB();
 app.use('/api/json',jsonRoutes);
 app.use('/api/base64',base64Routes);
 app.use('/api/auth',authRoutes);
+app.use('/api/history',historyRoutes);
 
 app.use((err,req,res,next)=>{
     if(err.status===400){

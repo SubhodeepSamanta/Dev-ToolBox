@@ -11,22 +11,24 @@ const UserPage = () => {
   const {user,register,login,logout,error}= useAuthStore();
   useEffect(()=>{
     loadHistory();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  },[]);
+  },[user,loadHistory,logIn,logout]);
   const handleAuthSignin= async()=>{
     const success= await register(form);
     if(success) setSignUp(false);
     setForm({username:"",password:""})
+    await loadHistory();
   }
 
   const handleAuthLogin= async()=>{
     const success= await login(form);
     if(success) setLogin(false);
     setForm({username:"",password:""});
+    await loadHistory();
   }
   
   const handleAuthLogout= async()=>{
     await logout();
+    await loadHistory();
   }
   return (
     <div className="bg-white dark:bg-[#020512] dark:text-white h-[100vh]">
