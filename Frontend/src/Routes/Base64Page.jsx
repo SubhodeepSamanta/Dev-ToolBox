@@ -69,7 +69,7 @@ const Base64Page = () => {
           <option value="ucs2">ucs2</option>
           <option value="utf161e">utf161e</option>
         </select>
-        <div className='py-2 px-4 text-sm bg-blue-500 w-fit text-white rounded-lg cursor-pointer hover:bg-blue-400'>{type=='decode'? 'Decode' : 'Encode'}</div>
+        <div className='py-2 px-4 text-sm bg-blue-500 w-fit text-white rounded-lg cursor-pointer hover:bg-blue-400' onClick={()=>{type==='decode'?handleSubmitDecode():handleSubmitEncode()}}>{type=='decode'? 'Decode' : 'Encode'}</div>
       </div>
       <div className='flex-1 border-1 border-gray-500 rounded-2xl relative'>
         <textarea name="" id="" className='w-full h-full border-0 rounded-2xl p-4 resize-none outline-gray-500' value={output} placeholder='Output will appear here' readOnly></textarea>

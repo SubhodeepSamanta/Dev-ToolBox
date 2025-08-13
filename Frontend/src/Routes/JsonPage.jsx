@@ -70,7 +70,7 @@ const JsonPage = () => {
           <option value="beautify">Beautify</option>
           <option value="minify">Minify</option>
         </select>
-        <div className='py-2 px-4 text-sm bg-blue-500 w-fit text-white rounded-lg cursor-pointer hover:bg-blue-400 dark:hover:bg-[#5972d8]'>Format</div>
+        <div className='py-2 px-4 text-sm bg-blue-500 w-fit text-white rounded-lg cursor-pointer hover:bg-blue-400 dark:hover:bg-[#5972d8]' onClick={()=>handleSubmit()}>Format</div>
         {
           mode=='beautify'?
         <select name="indents" id="indents" onChange={(e)=>setIndents(e.target.value)} value={indents} className='border-1 rounded-lg py-1.5 text-sm px-2 dark:bg-[#243887] dark:border-[#243887] cursor-pointer'>
