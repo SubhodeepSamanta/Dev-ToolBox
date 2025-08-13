@@ -3,6 +3,7 @@ import { create } from 'zustand'
 export const useThemeStore = create((set) => {
     let savedTheme= localStorage.getItem("theme") || "light";
     localStorage.setItem("theme", savedTheme);
+    localStorage.setItem("theme", savedTheme);
     document.documentElement.classList.toggle("dark", savedTheme==='dark');
 
   return {

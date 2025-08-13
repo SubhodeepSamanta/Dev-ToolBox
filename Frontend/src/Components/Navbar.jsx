@@ -2,7 +2,7 @@ import { InfoIcon, Menu, Moon, Sun, User, X } from 'lucide-react'
 import React from 'react'
 import { useState } from 'react'
 import { Link } from 'react-router'
-import { useThemeStore } from '../utilities/themeStore'
+import { useThemeStore } from '../Store/themeStore'
 
 const Navbar = () => {
     const [menu,setMenu]= useState(false);
