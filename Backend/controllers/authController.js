@@ -6,8 +6,8 @@ const sendToken=async(user,res)=>{
     const token= jwt.sign({id:user._id},process.env.JWT_SECRET,{expiresIn:"1d"});
     res.cookie("token",token,{
         httpOnly:true,
-        secure:false,
-        sameSite: "strict",
+        secure:true,
+        sameSite: "none",
         maxAge: 1*24*60*60*1000
     });
     res.status(200).json({success:true, message:"logged in successfully",user:{ username: user.username }})
