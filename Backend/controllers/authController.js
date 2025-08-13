@@ -15,32 +15,33 @@ const sendToken=async(user,res)=>{
 
 export const register=async(req,res)=>{
     const {username,password}= req.body;
+    console.log(username,password);
     try{
-        const user= User.findOne({username});
-        if(user) res.status(400).status("Username already exists");
+        const user= await User.findOne({username});
+        if(user) res.status(400).json({success:false, message:"Username already exists"});
         const hashedPassword= await bcrypt.hash(password,10);
         const newUser= new User({
             username,
-            passowrd: hashedPassword
+            password: hashedPassword
         })
         await newUser.save();
         sendToken(newUser,res);
 
     }catch(err){
-        res.status(500).send("Server Error");
+        res.status(500).json({success:false,message:"Server Error"});
     }
 }
 
 export const login= async(req,res)=>{
     const {username,password}= req.body;
     try{
-        const user= User.findOne({username});
-        if(!user) return res.status(400).send("Invalid Credentials!");
+        const user= await User.findOne({username});
+        if(!user) return res.status(400).json({success:false,message:"Invalid Credentials!"});
         const match= await bcrypt.compare(password,user.password);
-        if(!match) return res.status(400).send("Invalid Credentials!");
+        if(!match) return res.status(400).json({success:false,message:"Invalid Credentials!"});
         sendToken(user,res);
     }catch(err){
-        res.status(500).send("Server Error");
+        res.status(500).json({success:false, message:"Server Error"});
     }
 }
 

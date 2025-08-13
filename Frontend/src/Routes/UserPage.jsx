@@ -6,12 +6,28 @@ import { useHistoryStore } from "../Store/historyStore";
 const UserPage = () => {
   const [logIn,setLogin]= useState(false);
   const [signUp,setSignUp]= useState(false);
-  const {user}= useAuthStore();
   const {history,loadHistory,clearHistory}= useHistoryStore();
+  const [form,setForm]= useState({username:"",password:""});
+  const {user,register,login,logout,error}= useAuthStore();
   useEffect(()=>{
     loadHistory();
   // eslint-disable-next-line react-hooks/exhaustive-deps
   },[]);
+  const handleAuthSignin= async()=>{
+    const success= await register(form);
+    if(success) setSignUp(false);
+    setForm({username:"",password:""})
+  }
+
+  const handleAuthLogin= async()=>{
+    const success= await login(form);
+    if(success) setLogin(false);
+    setForm({username:"",password:""});
+  }
+  
+  const handleAuthLogout= async()=>{
+    await logout();
+  }
   return (
     <div className="bg-white dark:bg-[#020512] dark:text-white h-[100vh]">
       <div className="flex flex-col lg:flex-row items-center gap-5 pt-4 relative">
@@ -29,10 +45,10 @@ const UserPage = () => {
             </>
             :
             <>
-          <span className="bg-blue-500 flex items-center justify-center text-white py-2 px-5 rounded-full hover:bg-blue-400 cursor-pointer mx-2 md:mr-5">
+          <span className="bg-blue-500 flex items-center justify-center text-white py-2 px-5 rounded-full hover:bg-blue-400 cursor-pointer mx-2 md:mr-5" onClick={handleAuthLogout}>
             Sign Out
             </span>
-            <span className="text-xs md:text-base mt-2">Your data is stored in database when logged in</span>
+            <span className="text-xs md:text-base mt-2 text-green-400">Your data is stored in database when logged in</span>
             </>
           }
         </span>
@@ -48,15 +64,16 @@ const UserPage = () => {
             <div className="flex-start w-full mt-12">
               <label htmlFor="username" className="flex flex-col gap-2 w-full text-base sm:text-xl p-5 px-10">
                 Username:
-                <input type="text" id="username" placeholder="Enter your username" className="p-2 border-1 border-gray-400 rounded-xl" />
+                <input type="text" id="username" placeholder="Enter your username" value={form.username} onChange={(e)=>setForm({...form,username:e.target.value})} className="p-2 border-1 border-gray-400 rounded-xl" />
               </label>
-              <label htmlFor="username" className="flex flex-col gap-2 w-full text-base sm:text-xl p-5 px-10">
+              <label htmlFor="password" className="flex flex-col gap-2 w-full text-base sm:text-xl p-5 px-10">
                 Password:
-                <input type="password" id="username" placeholder="Password" className="p-2 border-1 border-gray-400 rounded-xl" />
+                <input type="password" id="password" placeholder="Password" value={form.password} onChange={(e)=>setForm({...form,password:e.target.value})} className="p-2 border-1 border-gray-400 rounded-xl" />
               </label>
-              <div className="text-center p-2 mt-4 bg-[#243887] hover:bg-[#5972d8] text-white mx-25 sm:mx-45 rounded-3xl cursor-pointer">login</div>
+              <div className="text-center p-2 mt-4 bg-[#243887] hover:bg-[#5972d8] text-white mx-25 sm:mx-45 rounded-3xl cursor-pointer" onClick={handleAuthLogin}>login</div>
             </div>
             <span className="text-sm mt-4">Do not have an account?<span className="text-blue-500 pl-2 cursor-pointer" onClick={()=>{setSignUp(true); setLogin(false)}}>SignIn</span></span>
+            <span className="text-red-500 mt-2">{error}</span>
           </div>
         </div>
         }
@@ -72,15 +89,16 @@ const UserPage = () => {
             <div className="flex-start w-full mt-12">
               <label htmlFor="username" className="flex flex-col gap-2 w-full text-base sm:text-xl p-5 px-10">
                 Username:
-                <input type="text" id="username" placeholder="Enter your username" className="p-2 border-1 border-gray-400 rounded-xl" />
+                <input type="text" id="username" placeholder="Enter your username" value={form.username} onChange={(e)=>setForm({...form,username:e.target.value})} className="p-2 border-1 border-gray-400 rounded-xl" />
               </label>
-              <label htmlFor="username" className="flex flex-col gap-2 w-full text-base sm:text-xl p-5 px-10">
+              <label htmlFor="password" className="flex flex-col gap-2 w-full text-base sm:text-xl p-5 px-10">
                 Password:
-                <input type="password" id="username" placeholder="Password" className="p-2 border-1 border-gray-400 rounded-xl" />
+                <input type="password" id="password" placeholder="Password" value={form.password} onChange={(e)=>setForm({...form,password:e.target.value})} className="p-2 border-1 border-gray-400 rounded-xl" />
               </label>
-              <div className="text-center p-2 mt-4 bg-[#243887] hover:bg-[#5972d8] text-white mx-25 sm:mx-45 rounded-3xl cursor-pointer">Sign In</div>
+              <div className="text-center p-2 mt-4 bg-[#243887] hover:bg-[#5972d8] text-white mx-25 sm:mx-45 rounded-3xl cursor-pointer" onClick={handleAuthSignin}>Sign In</div>
             </div>
             <span className="text-sm mt-4">Already have an account? <span className="text-blue-500 pl-2 cursor-pointer" onClick={()=>{setLogin(true); setSignUp(false)}}>login</span></span>
+            <span className="text-red-500 mt-2">{error}</span>
           </div>
         </div>
         }
