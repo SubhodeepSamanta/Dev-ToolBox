@@ -18,7 +18,9 @@ const HomePage = () => {
         and easier.
       </p>
       <div className="flex gap-10 items-center flex-col lg:flex-row justify-center mt-10 w-[95%]">
-        <video src="/demo.mp4" autoPlay loop muted className="w-[80%] lg:w-[50%] rounded-2xl" width={800}></video>
+        <div className="w-[80%] lg:w-[90%] rounded-2xl">
+        <video src="/demo.mp4" autoPlay loop muted className="w-full lg:w-full rounded-2xl" width={800}></video>
+        </div>
       <div className="flex flex-col relative gap-5 border-1 border-blue-400 py-10 px-5 rounded-xl w-[90%]">
         <p className="absolute -top-5 bg-white right-[45%] text-3xl font-bold dark:bg-[#020512] ">Features</p>
         <p className="flex text-sm sm:text-lg items-center"><Check className="text-blue-600 mr-5"/> Instant Formatting & Encoding — Beautify, minify, encode, or decode data in seconds.</p>
