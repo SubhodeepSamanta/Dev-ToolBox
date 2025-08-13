@@ -1,7 +1,8 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import {Clipboard} from 'lucide-react'
 import apiRequest from '../utilities/apiRequest';
 import { useHistoryStore } from '../Store/historyStore';
+import { useLocation } from 'react-router';
 
 const Base64Page = () => {
   const [text,setText]= useState("");
@@ -10,6 +11,7 @@ const Base64Page = () => {
   const [output,setOutput]= useState("");
   const [copy,setCopy]= useState("Copy to Clipboard");
   const {addHistory}= useHistoryStore();
+  const location= useLocation();
 
   const CopyText= ()=>{
     navigator.clipboard.writeText(output);
@@ -37,6 +39,13 @@ const Base64Page = () => {
     addHistory({type:"encode",input:text,output:response.data});
     return response.data;
   }
+
+  useEffect(()=>{
+    if(location.state){
+      setText(location.state.input);
+      setOutput(location.state.output);
+    }
+  },[location.state])
 
   return (
     <div className='bg-white dark:bg-[#020512] dark:text-white pb-10'>

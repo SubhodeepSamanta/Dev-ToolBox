@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import {X} from 'lucide-react'
 import { useAuthStore } from "../Store/authStore";
 import { useHistoryStore } from "../Store/historyStore";
+import {useNavigate} from 'react-router'
 
 const UserPage = () => {
   const [logIn,setLogin]= useState(false);
@@ -9,6 +10,7 @@ const UserPage = () => {
   const {history,loadHistory,clearHistory}= useHistoryStore();
   const [form,setForm]= useState({username:"",password:""});
   const {user,register,login,logout,error}= useAuthStore();
+  const navigate= useNavigate();
   useEffect(()=>{
     loadHistory();
   },[user,loadHistory,logIn,logout]);
@@ -30,6 +32,17 @@ const UserPage = () => {
     await logout();
     await loadHistory();
   }
+
+  const handleHistoryLink=async(h)=>{
+    console.log(h.type)
+    navigate(`/${h.type=='encode'|| h.type=='decode'?'base64':'json'}`,{
+      state:{
+        input:h.input,
+        output:h.output
+      }
+    })
+  }
+
   return (
     <div className="bg-white dark:bg-[#020512] dark:text-white h-[100vh]">
       <div className="flex flex-col lg:flex-row items-center gap-5 pt-4 relative">
@@ -106,7 +119,8 @@ const UserPage = () => {
         }
       </div>
       <div className="flex flex-col pb-10">
-        <h2 className="text-3xl font-bold ml-5 md:ml-15 mt-10">History</h2>
+        <h2 className="text-3xl font-bold ml-5 md:ml-15 mt-10 flex flex-col sm:flex-row">History
+        <span className="text-xs sm:text-sm text-gray-200 mt-2 ml-5 sm:ml-10 font-normal">click on the specific history to check it in depth</span></h2>
         <div className="border dark:border-gray-700 w-[90%] ml-5 sm:ml-10 md:ml-20 mt-10 rounded-t-xl scrollbar-hide">
           {/* Header wala row */}
           <div className="grid grid-cols-5 relative">
@@ -132,7 +146,7 @@ const UserPage = () => {
           {
             history.length > 0 ?(
             history.map((h,index)=>(
-            <div className="grid grid-cols-5 text-xs md:text-base" key={h.timestamp}>
+            <div className="grid grid-cols-5 text-xs md:text-base cursor-pointer" key={h.timestamp} onClick={()=>handleHistoryLink(h)}>
             <div className="bg-gray-100 dark:bg-[#202a55] w-full p-4 flex justify-around">
               <p>{index+1}</p>
             </div>
