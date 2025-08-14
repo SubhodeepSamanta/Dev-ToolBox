@@ -18,6 +18,13 @@
 
 </div>
 
+## Project Flow:
+DAY 1: I looked up some UI inspirations, made the project flow in pen and paper and created a basic backend  
+
+DAY 2: Polished UI and created Dark theme, used Zustand for context with backend connectivity. 
+
+DAY 3: Storing data, localStorage when user is not logged in and database when logged in . User auth using JWT. Hosting
+
 ## ✨ Features
 
 - ⚡ **Instant Formatting & Encoding** — Beautify, minify, encode, or decode data in seconds.
@@ -25,6 +32,14 @@
 - 🎨 **Customizable UI** — Toggle dark/light mode anytime for a distraction-free experience.
 - 🧩 **Multiple Tools in One** — JSON formatter, Base64 converter, and more, all in one place.
 - 🚀 **No Signup Required** — Start using instantly, with extra perks if you log in.
+- The Data is stored in LocalStorage when User is not loggedin and stored in database when user is loggedin
+- When clicked on a particular history it redirects to that page with more details
+- JSON Formatter with error handling for invalid JSON
+- Base64 Encoder/Decoder with other options
+- Lazy loading 
+- Copy to Clipboard
+- Dark Mode (I have used Tailwind css)
+- User Authentication using tokens
 
 ---
 
